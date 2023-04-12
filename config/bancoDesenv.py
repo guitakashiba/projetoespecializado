@@ -2,7 +2,7 @@ import sqlite3
 
 # Conecta ao banco de dados
 conn = sqlite3.connect('database.db')
-
+"""
 # Cria a tabela Aluno
 conn.execute('''CREATE TABLE Aluno
                  (id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -52,6 +52,25 @@ conn.execute('''CREATE TABLE Materia_Aluno
                   Aluno_id INTEGER NOT NULL,
                   FOREIGN KEY (Materia_id) REFERENCES Materia(id),
                   FOREIGN KEY (Aluno_id) REFERENCES Aluno(id));''')
+
+"""
+
+# Insere dados na tabela Aluno
+conn.execute("INSERT INTO Aluno (Nome, Matricula, Curso) VALUES ('Aluno Teste', '1234', 'Engenharia de Controle e Automação')")
+
+# Insere dados na tabela Curso
+conn.execute("INSERT INTO Curso (Nome) VALUES ('Engenharia de Controle e Automação')")
+
+# Insere dados na tabela Disciplina
+conn.execute("INSERT INTO Disciplina (Nome, Tipo, HorasTotal) VALUES ('Obrigatoria', 0)")
+conn.execute("INSERT INTO Disciplina (Nome, Tipo, HorasTotal) VALUES ('Especializada', 396)")
+conn.execute("INSERT INTO Disciplina (Nome, Tipo, HorasTotal) VALUES ('Engenharia CA', 144)")
+conn.execute("INSERT INTO Disciplina (Nome, Tipo, HorasTotal) VALUES ('Engenharia Livre', 144)")
+conn.execute("INSERT INTO Disciplina (Nome, Tipo, HorasTotal) VALUES ('Complementar', 108)")
+
+# Insere dados na tabela Matéria
+conn.execute("INSERT INTO Materia (Codigo, Nome, Tipo, CargaHora) VALUES ('BLU6001','Cálculo I', 'Obrigatoria', 108)")
+
 
 # Salva as alterações e fecha a conexão
 conn.commit()
