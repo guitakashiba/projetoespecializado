@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/public/styleResp.css">
+        <title>Login</title>
+    </head>
+<body>
+    <div class="main-login">
+        <div class="left-login" id="left-div">
+            <h1>Faça login e acompanhe<br>a sua Trilha Academica</h1>
+            <img src="loginimage.svg" class="left-login-image" alt="Task animado">
+        </div>
+        <div class="right-login" id="right-div">
+            <div class="card-login">
+                <h1>LOGIN</h1>
+                <div class="textfield">
+                    <label for="usuario">Usuário</label>
+                    <input type="text" name="usuario" placeholder="Usuário">
+                </div>
+                <div class="textfield">
+                    <label for="senha">Senha</label>
+                    <input type="password" name="senha" placeholder="Senha">
+                </div>
+                <button class="btn-tela-login" onclick="redirectInicial()">Login</button>
+                <button class="btn-tela-login" id="btn-cadastro" onclick="redirect()">cadastrar</button>
+            </div>
+        </div>
+    </div>
+    <script src="/config/env/main.js"></script>
+    <footer>
+        <p>&copy; 2023 Minha Trilha App. Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>

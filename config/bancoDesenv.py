@@ -1,7 +1,64 @@
 import sqlite3
 
 # Conecta ao banco de dados
-conn = sqlite3.connect('database.db')
+conn = sqlite3.connect('bancodisciplina.db')
+
+conn.execute('''CREATE TABLE aluno (
+            id INTEGER PRIMARY KEY,
+            nome TEXT NOT NULL,
+            numero_matricula INTEGER NOT NULL
+);''')
+
+conn.execute('''CREATE TABLE curso (
+    id INTEGER PRIMARY KEY,
+    nome TEXT NOT NULL
+);''')
+
+conn.execute('''CREATE TABLE disciplina (
+    id INTEGER PRIMARY KEY,
+    nome TEXT NOT NULL,
+    curso_id INTEGER NOT NULL,
+    FOREIGN KEY (curso_id) REFERENCES curso(id)
+);''')
+
+conn.execute('''CREATE TABLE materia (
+    id INTEGER PRIMARY KEY,
+    nome TEXT NOT NULL,
+    carga_horaria INTEGER NOT NULL,
+    disciplina_id INTEGER NOT NULL,
+    FOREIGN KEY (disciplina_id) REFERENCES disciplina(id)
+);''')
+
+conn.execute('''CREATE TABLE estudante_curso (
+    id INTEGER PRIMARY KEY,
+    estudante_id INTEGER NOT NULL,
+    curso_id INTEGER NOT NULL,
+    status TEXT NOT NULL,
+    nota REAL,
+    FOREIGN KEY (estudante_id) REFERENCES aluno(id),
+    FOREIGN KEY (curso_id) REFERENCES curso(id)
+);''')
+
+conn.execute('''CREATE TABLE estudante_disciplina (
+    id INTEGER PRIMARY KEY,
+    estudante_id INTEGER NOT NULL,
+    disciplina_id INTEGER NOT NULL,
+    status TEXT NOT NULL,
+    nota REAL,
+    FOREIGN KEY (estudante_id) REFERENCES aluno(id),
+    FOREIGN KEY (disciplina_id) REFERENCES disciplina(id)
+);''')
+
+conn.execute('''CREATE TABLE estudante_materia (
+    id INTEGER PRIMARY KEY,
+    estudante_id INTEGER NOT NULL,
+    materia_id INTEGER NOT NULL,
+    status TEXT NOT NULL,
+    nota REAL,
+    FOREIGN KEY (estudante_id) REFERENCES aluno(id),
+    FOREIGN KEY (materia_id) REFERENCES materia(id)
+);''')
+
 """
 # Cria a tabela Aluno
 conn.execute('''CREATE TABLE Aluno
@@ -53,7 +110,7 @@ conn.execute('''CREATE TABLE Materia_Aluno
                   FOREIGN KEY (Materia_id) REFERENCES Materia(id),
                   FOREIGN KEY (Aluno_id) REFERENCES Aluno(id));''')
 
-"""
+
 
 # Insere dados na tabela Aluno
 conn.execute("INSERT INTO Aluno (Nome, Matricula, Curso) VALUES ('Aluno Teste', '1234', 'Engenharia de Controle e Automação')")
@@ -75,3 +132,4 @@ conn.execute("INSERT INTO Materia (Codigo, Nome, Tipo, CargaHora) VALUES ('BLU60
 # Salva as alterações e fecha a conexão
 conn.commit()
 conn.close()
+"""
