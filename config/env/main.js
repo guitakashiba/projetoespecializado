@@ -1,37 +1,57 @@
+const express = require('express');
+const sqlite3 = require('sqlite3').verbose();
+const bodyParser = require('body-parser');
 
-function redirect(){
-  window.location.href = "/views/cadastroResp.html";
-}
-
-function salvarDados(){
-  // captura os dados do formulário
-  const nome = document.getElementById("nome").value;
-  const matricula = document.getElementById("matricula").value;
-  const email = document.getElementById("email").value;
-  const curso = document.getElementById("curso").value;
-  const senha = document.getElementById('senha').value;
-
-  // cria uma conexão com o banco de dados
-  var db = new sqlite3.Database('usuarios.db');
-
-  // cria a tabela se ela não existir
-  db.run('CREATE TABLE IF NOT EXISTS usuarios (nome TEXT, matricula TEXT, curso TEXT,email TEXT, senha TEXT)');
-
-  // insere os dados na tabela
-  db.executeSql(
-    "INSERT INTO usuarios (nome, matricula, email, curso, senha) VALUES (?, ?, ?, ?, ?)",
-    [nome, matricula, email, curso, senha],
-    () => console.log("Dados inseridos com sucesso!"),
-    (error) => console.error("Erro ao inserir dados: " + error.message)
-  );
-
-  // fecha a conexão com o banco de dados
-  db.close();
-
-  // redireciona o usuário para outra página
-  window.location.href = "/views/telaInicial.html";
-}
+const app = express();
+const db = new sqlite3.Database('./config/users.db');
 
 function redirectInicial(){
   window.location.href = "/views/telaInicial.html";
 }
+
+function redirectCad(){
+  window.location.href = "/views/cadastroResp.html";
+}
+
+// Inicializa o servidor
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`Servidor iniciado na porta ${port}`);
+});
+
+function salvarDados(){
+  app.use(bodyParser.urlencoded({ extended: false }));
+  app.use(bodyParser.json());
+
+  // Rota para a página de cadastro
+  app.get('./views', (req, res) => {
+    res.sendFile('/cadastroResp.html');
+  });
+
+  // Rota para o cadastro de usuários
+  app.post('./views/cadastroResp.html', (req, res) => {
+    const { nome, matricula, email, curso, senha } = req.body;
+
+    db.run(
+      'INSERT INTO usuarios (nome, matricula, email, curso, senha) VALUES (?, ?, ?, ?, ?)',
+      [nome, matricula, email, curso, senha],
+      (err) => {
+        if (err) {
+          console.error(err);
+          res.status(500).send('Erro ao cadastrar usuário');
+        } else {
+          res.send('Usuário cadastrado com sucesso!');
+        }
+      }
+    );
+  });
+
+  // Cria tabela de usuários no banco de dados
+  db.serialize(() => {
+    db.run(
+      'CREATE TABLE IF NOT EXISTS usuarios (id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT, matricula TEXT, email TEXT, curso TEXT, senha TEXT)'
+    );
+  });
+}
+
+

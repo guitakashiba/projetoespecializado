@@ -11,12 +11,13 @@
     <div class="main-login">
         <div class="left-login">
             <h1>Faça login e acompanhe<br>a sua Trilha Academica</h1>
-            <img src="loginimage.svg" class="left-login-image" alt="Task animado">
+            <img src="/views/images/loginimage.svg" class="left-login-image" alt="Task animado">
         </div>
         <div class="right-login">
             <div class="card-login">
                 <h1>CADASTRO</h1>
-                <div class="textfield">
+                <div id="mensagem-erro" style="display:none">Por favor, preencha todos os campos do formulário</div>
+                <div class="textfield" method="post">
                     <label for="nome">Nome</label>
                     <input type="text" id="nome" name="usuario" placeholder="Nome completo">
                     <label for="matricula">Matrícula</label>
@@ -33,12 +34,14 @@
                     <label for="senha">Senha</label>
                     <input type="password" id="senha" name="senha" placeholder="Senha">
                 </div>
-                <button class="btn-tela-login" onclick="salvarDados()">confirmar</button>
+                <button class="btn-tela-login" id="btn-confirma" onclick="salvarDados()">confirmar</button>
                 <button class="btn-tela-login" onclick="window.history.back()">VOLTAR</button>
             </div>
         </div>
     </div>
     <script src="/config/env/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.5.0/sql-wasm.js"></script>
+
     <footer>
         <p>&copy; 2023 Minha Trilha App. Todos os direitos reservados.</p>
     </footer>
