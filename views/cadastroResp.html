@@ -17,7 +17,7 @@
             <div class="card-login">
                 <h1>CADASTRO</h1>
                 <div id="mensagem-erro" style="display:none">Por favor, preencha todos os campos do formulário</div>
-                <div class="textfield" method="post">
+                <form class="textfield" method="post">
                     <label for="nome">Nome</label>
                     <input type="text" id="nome" name="usuario" placeholder="Nome completo">
                     <label for="matricula">Matrícula</label>
@@ -29,11 +29,9 @@
                         <option disabled selected>Selecione o seu curso</option>
                         <option value="ECA">Engenharia de Controle e Automação</option>
                     </select>
-                </div>
-                <div class="textfield">
                     <label for="senha">Senha</label>
                     <input type="password" id="senha" name="senha" placeholder="Senha">
-                </div>
+                </form>
                 <button class="btn-tela-login" id="btn-confirma" onclick="salvarDados()">confirmar</button>
                 <button class="btn-tela-login" onclick="window.history.back()">VOLTAR</button>
             </div>

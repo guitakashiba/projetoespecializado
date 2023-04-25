@@ -88,7 +88,8 @@ body * {
 
 .textfield > label{
     color: #f0ffffde;
-    margin-bottom: 10px;
+    margin-bottom: 7px;
+    margin-top: 10px;
 }
 
 .textfield > input::placeholder{
